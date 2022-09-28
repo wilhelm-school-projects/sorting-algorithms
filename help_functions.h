@@ -1,5 +1,5 @@
-#ifndef INSERT_FUNCTION
-#define INSERT_FUNCTION
+#ifndef HELP_FUNCTIONS
+#define HELP_FUNCTIONS
 
 #include <vector>
 #include <string>
@@ -21,4 +21,9 @@ void insert_unique(std::vector<std::string> & item)
     }
 }
 
-#endif /* INSERT_FUNCTION */
+void print(std::vector<std::string> & item)
+{
+    /* print item*/
+}
+
+#endif /* HELP_FUNCTIONS */

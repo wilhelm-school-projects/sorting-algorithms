@@ -1,7 +1,8 @@
 
-all: brute
+all: 
+	@echo "Usage: make <program>\nE.g., make bubble"
 
-brute: 
+bubble: 
 	g++ -std=c++17 -o bubble/bubble bubble/bubble.cpp  
 
 # Not working properly
