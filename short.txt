@@ -5,4 +5,4 @@ text
 that
 broke
 the program
-it was not it was this a command
+it was not it was a command
