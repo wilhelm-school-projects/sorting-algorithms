@@ -23,7 +23,10 @@ void insert_unique(std::vector<std::string> & item)
 
 void print(std::vector<std::string> & item)
 {
-    /* print item*/
+    for (auto const& e : item)
+    {
+        std::cout << e << std::endl;
+    }
 }
 
 #endif /* HELP_FUNCTIONS */

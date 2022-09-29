@@ -1,9 +1,9 @@
-
+#g++ -std=c++17 bubble/a.out bubble/bubble.cpp  
 all: 
 	@echo "Usage: make <program>\nE.g., make bubble"
 
 bubble: 
-	g++ -std=c++17 -o bubble/bubble bubble/bubble.cpp  
+	ls
 
 # Not working properly
 clean:
