@@ -5,20 +5,21 @@
 #include <string>
 #include <iostream>
 #include <algorithm>
+#include <set>
+#include <iterator>
 
 // inserts words into vector but only once
 void insert_unique(std::vector<std::string> & item)
 {
     std::string buffer{};
-
+    std::set<std::string> input{};
+    
     // Reads until end of file
     while (std::cin >> buffer)
     {
-        if (std::find(begin(item), end(item), buffer) == item.end()) 
-        {
-            item.push_back(buffer);
-        }
+        input.insert(buffer);
     }
+    std::copy(std::begin(input), std::end(input), std::back_insert_iterator<std::vector<std::string>>(item));
 }
 
 void print(std::vector<std::string> & item)
