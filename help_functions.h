@@ -34,123 +34,49 @@ void print(std::vector<std::string> & item)
     std::cout << "-------------------------------\n" << std::endl;
 }
 
-/**
- * TODO: print_nice
- * Print words like pillars meaning letters in the same word are in the same column but different rows. Harder than i thought it would be.
- * Idea: make 1 string for every row which consists of characters that actually are part of different words, E.g.;
- * 
- * string1: e k d d   
- * string2: o l a e p o
- * string3: j u d o w k o
- * 
- * And so forth. Thus e.g., "eoj" was a word in item 
-*/
-
 std::string spaces(int num)
 {
-    std::string spaces{};
-
-    std::cout << "|";
+    std::string spaces{""};
     for (int i {}; i < num; ++i)
     {
         spaces = spaces + " ";
     }
-    std::cout << spaces;
-    std::cout << "|" << std::endl;
     return spaces;
 }
 
 std::vector<std::string> construct_space_induced_words (std::vector<std::string> const& words)
 {
-    std::cout << "-------------------------------" << std::endl;
-    std::cout << "-------------------------------" << std::endl;
-    std::cout << "-------------------------------" << std::endl;
-    std::cout << "-------------------------------" << std::endl;
-
-
     std::vector<std::string> result {};
-    int biggest{words.front().size()};
-    int size{};
+    int biggest{static_cast<int>(words.front().size())};
+
     std::string word_with_spaces{};
-    for (int i{}; i < words.size(); ++i)
+    for (size_t i{}; i < words.size(); ++i)
     {
-        word_with_spaces = spaces(biggest - words.size()) + words.at(i);
-        std::cout << word_with_spaces << std::endl; 
+        word_with_spaces = spaces(biggest - words.at(i).size()) + words.at(i);
+        result.push_back(word_with_spaces); 
     }
-
-
-
-
-
-
-    std::cout << "-------------------------------" << std::endl;
-    std::cout << "-------------------------------" << std::endl;
-    std::cout << "-------------------------------" << std::endl;
-    std::cout << "-------------------------------" << std::endl;
     return result;
 }
 
 /// @brief Creates a column presentation of the sorted words and thus assumes item is sorted by word size.
+///        Turns out it's not such a nice way to print with texts with maybe about 200 unique words.
 /// @param item 
 /// @return column presentation of sorted words in vector<string>
 std::vector<std::string> create_rows(std::vector<std::string> & item)
 {
-    std::vector<std::string> result{};
     std::reverse(begin(item), end(item));
+    std::vector<std::string> result{};
     std::vector<std::string> tmp{construct_space_induced_words(item)};
-
     
-
-    // std::vector<std::string> result{};
-    // int current_size{};
-    // int index{};
-    // while(true)
-    // {
-    //     current_size = item.at(index).size();
-    //     result.push_back(std::string{""});
-    //     int curr_word{};
-
-    //     while (true)
-    //     {
-    //         if (item.at(curr_word).size() != current_size)
-    //         {
-    //             break;
-    //         }
-
-    //         result.at(index) = result.at(index) + item.at(curr_word).at(index);
-
-    //         curr_word++;
-    //     }
-    //     std::cout << result.at(index) << std::endl;
-    //     ++index;
-    // }
-
-    // for (int i{}; i < item.back().size(); ++i)
-    // {
-    //     // Första ordets storlek
-    //     current_size = item.at(i).size();
-    //     result.push_back(std::string{""});
-    //     int curr_word{i};
-
-    //     while (true)
-    //     {
-    //         if (item.at(curr_word).size() != current_size)
-    //         {
-    //             break;
-    //         }
-
-    //         result.at(i) = result.at(i) + item.at(curr_word).at(i);
-
-    //         curr_word++;
-    //     }
-    //     std::cout << result.at(i) << std::endl;
-        
-    //     // for (int j{}; static_cast<int>(item.at(j).size()) != current_size; ++j)
-    //     // {
-    //     //     result.at(i) += item.at(j).at(i);
-    //     // }
-    // }
-
+    for (size_t i{}; i < tmp.at(0).size(); ++i)
+    {
+        std::string row{};
+        for (size_t j{}; j < tmp.size(); ++j)
+        {
+            row = row + tmp.at(j).at(i) + "  ";
+        }
+        result.push_back(row);
+    }
     std::reverse(begin(item), end(item));
     return result;
 }
@@ -159,16 +85,11 @@ void print_nice(std::vector<std::string> & item)
 {
     std::vector<std::string> rows {create_rows(item)};
     
-   // std::cout << "-------------------------------" << std::endl;
-    // for (std::string const& e : rows)
-    // {
-    //     std::cout << e << std::endl;
-    // }
-    //std::cout << "-------------------------------\n" << std::endl;
+    std::cout << "-------------------------------" << std::endl;
+    for (size_t i{}; i < rows.size(); ++i)
+    {
+        std::cout << rows.at(i) << std::endl;
+    }
+    std::cout << "-------------------------------\n" << std::endl;
 }
-
-/* TODO: function print_nice 
-        - Should print the words like pillars on the same row 
-*/
-
 #endif /* HELP_FUNCTIONS */
