@@ -46,49 +46,84 @@ void print(std::vector<std::string> & item)
  * And so forth. Thus e.g., "eoj" was a word in item 
 */
 
-void add_spaces (std::vector<std::string> & words)
+std::string spaces(int num)
 {
-    int biggest{words.front().size()};
+    std::string spaces{};
 
+    std::cout << "|";
+    for (int i {}; i < num; ++i)
+    {
+        spaces = spaces + " ";
+    }
+    std::cout << spaces;
+    std::cout << "|" << std::endl;
+    return spaces;
+}
+
+std::vector<std::string> construct_space_induced_words (std::vector<std::string> const& words)
+{
+    std::cout << "-------------------------------" << std::endl;
+    std::cout << "-------------------------------" << std::endl;
+    std::cout << "-------------------------------" << std::endl;
+    std::cout << "-------------------------------" << std::endl;
+
+
+    std::vector<std::string> result {};
+    int biggest{words.front().size()};
+    int size{};
+    std::string word_with_spaces{};
     for (int i{}; i < words.size(); ++i)
     {
-        
+        word_with_spaces = spaces(biggest - words.size()) + words.at(i);
+        std::cout << word_with_spaces << std::endl; 
     }
+
+
+
+
+
+
+    std::cout << "-------------------------------" << std::endl;
+    std::cout << "-------------------------------" << std::endl;
+    std::cout << "-------------------------------" << std::endl;
+    std::cout << "-------------------------------" << std::endl;
+    return result;
 }
 
 /// @brief Creates a column presentation of the sorted words and thus assumes item is sorted by word size.
 /// @param item 
 /// @return column presentation of sorted words in vector<string>
-std::vector<std::string> create_rows(std::vector<std::string> const& item)
+std::vector<std::string> create_rows(std::vector<std::string> & item)
 {
-    std::vector<std::string> tmp{item};
-    std::reverse(begin(tmp), end(tmp));
-
-    add_spaces(tmp);
-
     std::vector<std::string> result{};
-    int current_size{};
-    int index{};
-    while(true)
-    {
-        current_size = item.at(index).size();
-        result.push_back(std::string{""});
-        int curr_word{};
+    std::reverse(begin(item), end(item));
+    std::vector<std::string> tmp{construct_space_induced_words(item)};
 
-        while (true)
-        {
-            if (item.at(curr_word).size() != current_size)
-            {
-                break;
-            }
+    
 
-            result.at(index) = result.at(index) + item.at(curr_word).at(index);
+    // std::vector<std::string> result{};
+    // int current_size{};
+    // int index{};
+    // while(true)
+    // {
+    //     current_size = item.at(index).size();
+    //     result.push_back(std::string{""});
+    //     int curr_word{};
 
-            curr_word++;
-        }
-        std::cout << result.at(index) << std::endl;
-        ++index;
-    }
+    //     while (true)
+    //     {
+    //         if (item.at(curr_word).size() != current_size)
+    //         {
+    //             break;
+    //         }
+
+    //         result.at(index) = result.at(index) + item.at(curr_word).at(index);
+
+    //         curr_word++;
+    //     }
+    //     std::cout << result.at(index) << std::endl;
+    //     ++index;
+    // }
 
     // for (int i{}; i < item.back().size(); ++i)
     // {
