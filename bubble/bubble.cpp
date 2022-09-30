@@ -41,9 +41,9 @@ int main()
     // input words to vector of words
     vector<string> words{};
     insert_unique(words);
-    print(words);
 
     sort(words);
+    print(words);
     print_nice(words);
 
     return 0;
