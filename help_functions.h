@@ -59,7 +59,7 @@ std::vector<std::string> construct_space_induced_words (std::vector<std::string>
 }
 
 /// @brief Creates a column presentation of the sorted words and thus assumes item is sorted by word size.
-///        Turns out it's not such a nice way to print with texts with maybe about 200 unique words.
+///        Turns out it's not such a nice way to print with texts with more than maybe about 200 unique words.
 /// @param item 
 /// @return column presentation of sorted words in vector<string>
 std::vector<std::string> create_rows(std::vector<std::string> & item)
