@@ -46,6 +46,7 @@
         "typeinfo": "cpp",
         "set": "cpp",
         "ctime": "cpp",
-        "iomanip": "cpp"
+        "iomanip": "cpp",
+        "chrono": "cpp"
     }
 }

@@ -25,7 +25,6 @@ void insert_unique(std::vector<std::string> & item)
     std::string buffer{};
     std::set<std::string> input{};
     
-    // Reads until end of file
     while (std::cin >> buffer)
     {
         input.insert(buffer);
@@ -78,7 +77,8 @@ std::vector<std::string> create_rows(std::vector<std::string> & item)
     std::vector<std::string> result{};
     std::vector<std::string> tmp{construct_space_induced_words(item)};
     
-    for (size_t i{}; i < tmp.at(0).size(); ++i)
+    int word_size {tmp.at(0).size()};
+    for (size_t i{}; i < word_size; ++i)
     {
         std::string row{};
         for (size_t j{}; j < tmp.size(); ++j)
@@ -87,6 +87,7 @@ std::vector<std::string> create_rows(std::vector<std::string> & item)
         }
         result.push_back(row);
     }
+    
     std::reverse(begin(item), end(item));
     return result;
 }
