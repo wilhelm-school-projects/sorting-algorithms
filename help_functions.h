@@ -8,6 +8,16 @@
 #include <set>
 #include <iterator>
 #include <iomanip>
+#include <fstream>
+
+/*
+    insert_unique messes up the order of the words that are inputed. Thus if a text is sorted in ascending order
+    E.g., insertion sort will not have N in time complexity. To have this case where insertion sort have N use 
+    the following to input words to the words vector.
+
+    ifstream in_f{"../sorted.txt"};
+    copy(istream_iterator<string>(in_f), istream_iterator<string>(), std::back_insert_iterator<std::vector<std::string>>(words));
+*/
 
 // inserts words into vector but only once
 void insert_unique(std::vector<std::string> & item)
@@ -60,7 +70,7 @@ std::vector<std::string> construct_space_induced_words (std::vector<std::string>
 
 /// @brief Creates a column presentation of the sorted words and thus assumes item is sorted by word size.
 ///        Turns out it's not such a nice way to print with texts with more than maybe about 200 unique words.
-/// @param item 
+/// @param std::vector<std::string> & item 
 /// @return column presentation of sorted words in vector<string>
 std::vector<std::string> create_rows(std::vector<std::string> & item)
 {
@@ -81,6 +91,13 @@ std::vector<std::string> create_rows(std::vector<std::string> & item)
     return result;
 }
 
+/*
+    To use it and actually make the output "nice" use these settings on a "Ubuntu on Windows" terminal used for WSL1
+    font size: 14
+    screen buffer size: ~500
+*/
+/// @brief  Outputs words in item in a column presentation
+/// @param std::vector<std::string> & item) 
 void print_nice(std::vector<std::string> & item)
 {
     std::vector<std::string> rows {create_rows(item)};
@@ -92,4 +109,16 @@ void print_nice(std::vector<std::string> & item)
     }
     std::cout << "-------------------------------\n" << std::endl;
 }
+
+void write_sorted(std::vector<std::string> const& words)
+{
+    std::ofstream of{"../sorted.txt"};
+    for (auto const& e : words)
+    {
+        of << e << " ";
+    }
+    of << std::endl;
+    of.close();
+}
+
 #endif /* HELP_FUNCTIONS */

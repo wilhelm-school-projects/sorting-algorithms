@@ -28,7 +28,6 @@ void sort(vector<string> & item)
                 string tmp {*next};
                 *next = *curr;
                 *curr = tmp;
-
             }
             curr++;
             next++;

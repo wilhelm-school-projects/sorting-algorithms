@@ -1,16 +1,24 @@
 #include "../help_functions.h"
 #include <vector>
 #include <string>
+#include <fstream>
 
 using namespace std;
 
 void sort(vector<string> & item)
 {
-    for (int i{}; i < item.size(); ++i)
-    {
-        for (int j{}; j < item.size(); ++j)
+    for (size_t i{1}; i < item.size(); ++i)
+    {  
+        for (size_t j{i}; j > 0; --j)
         {
-            
+            if (item.at(j).size() < item.at(j - 1).size())
+            {
+                swap(item.at(j), item.at(j - 1));
+            }
+            else if (item.at(j).size() >= item.at(j - 1).size())
+            {
+                break;
+            }
         }
     }
 }   
@@ -22,6 +30,7 @@ int main()
     print(words);
     
     sort(words);
-    // print_nice(words);
+    print_nice(words);
+
     return 0;
 }
