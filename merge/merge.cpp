@@ -22,7 +22,7 @@ vector<string> merge_sort(Iterator_Type begin, Iterator_Type last)
         return result;
     }
     else if(size == 2)
-    {
+    { 
         // Left side
         left = merge_sort(begin, begin);
     
@@ -45,25 +45,9 @@ vector<string> merge_sort(Iterator_Type begin, Iterator_Type last)
     
     auto right_end {right.end()};
     auto left_end {left.end()};
-    
+   
     while (true)
     {
-        if ( left_it->size() < right_it->size())
-        {
-            result.push_back(*left_it);
-            ++left_it;
-        }
-        if ( right_it->size() < left_it->size())
-        {
-            result.push_back(*right_it);
-            ++right_it;
-        }
-        else
-        {
-            result.push_back(*left_it);     // left_it and right_it point to a words the same size, thus choose one to push_back into vector.
-            ++left_it;
-        }
-
         if (right_it == right_end)
         {
             for (; left_it != left_end; ++left_it)
@@ -80,12 +64,25 @@ vector<string> merge_sort(Iterator_Type begin, Iterator_Type last)
             }
             break;
         }
+
+        if ( left_it->size() < right_it->size())
+        {
+            result.push_back(*left_it);
+            ++left_it;
+        }
+        else if ( right_it->size() < left_it->size())
+        {
+            result.push_back(*right_it);
+            ++right_it;
+        }
+        else
+        {
+            result.push_back(*left_it);                     // left_it and right_it point to a words the same size, thus choose one to push_back into vector.
+            ++left_it;
+        }
     }
     return result;
 }
-
-//cout << "size: " << size << ": " << *begin << " " << *last << endl;
-//copy(begin, middle + 1, ostream_iterator<string>(cout, " "));   // middle räknas som t.ex. vector.end(), alltså inkluderas 
 
 void sort(vector<string> & words)
 {
@@ -93,7 +90,7 @@ void sort(vector<string> & words)
 }
 
 int main()
-{   
+{
     vector<string> words{};
     insert_unique(words);
     print(words);
