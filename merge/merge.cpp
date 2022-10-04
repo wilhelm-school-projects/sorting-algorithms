@@ -77,7 +77,8 @@ vector<string> merge_sort(Iterator_Type begin, Iterator_Type last)
         }
         else
         {
-            result.push_back(*left_it);                     // left_it and right_it point to a words the same size, thus choose one to push_back into vector.
+            // left_it and right_it point to a words the same size, thus choose one to push_back into vector.
+            result.push_back(*left_it);
             ++left_it;
         }
     }
