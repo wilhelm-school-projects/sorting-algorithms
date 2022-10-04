@@ -81,7 +81,7 @@ vector<string> merge_sort(Iterator_Type begin, Iterator_Type last)
             break;
         }
     }
-
+    return result;
 }
 
 //cout << "size: " << size << ": " << *begin << " " << *last << endl;
