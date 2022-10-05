@@ -1,10 +1,15 @@
 #g++ -std=c++17 bubble/a.out bubble/bubble.cpp  
-all: 
-	@echo "Usage: make <program>\nE.g., make bubble"
+#@echo "Usage: make <program>\nE.g., make bubble"
+all: bubble quick 
+	
 
-bubble: 
-	ls
+
+bubble: bubble/bubble.o 
+	g++ -std=c++17 -o bubble/a.out bubble/bubble.cpp
+
+quick: quick/quick.o 
+	g++ -std=c++17 -o quick/a.out quick/quick.cpp
 
 # Not working properly
 clean:
-	rm *.o a.out
+	rm -f */*.o a.out

@@ -77,7 +77,7 @@ std::vector<std::string> create_rows(std::vector<std::string> & item)
     std::vector<std::string> result{};
     std::vector<std::string> tmp{construct_space_induced_words(item)};
     
-    int word_size {tmp.at(0).size()};
+    size_t word_size {tmp.at(0).size()};
     for (size_t i{}; i < word_size; ++i)
     {
         std::string row{};
@@ -94,15 +94,15 @@ std::vector<std::string> create_rows(std::vector<std::string> & item)
 
 /*
     To use it and actually make the output "nice" use these settings on a "Ubuntu on Windows" terminal used for WSL1
-    font size: 14
-    screen buffer size: ~500
+        - font size: 14
+        - screen buffer size: ~500
 */
 /// @brief  Outputs words in item in a column presentation
 /// @param std::vector<std::string> & item) 
 void print_nice(std::vector<std::string> & item)
 {
     std::vector<std::string> rows {create_rows(item)};
-    
+    std::cout << "\nVector size: " << item.size() << std::endl;
     std::cout << "-------------------------------" << std::endl;
     for (size_t i{}; i < rows.size(); ++i)
     {
