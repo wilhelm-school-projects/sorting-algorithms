@@ -1,32 +1,48 @@
 #include <vector>
 #include <string>
 #include <iterator>
+#include <iostream>
 
 #include "../help_functions.h"
 
 using namespace std;
 using Iterator_Type  = vector<string>::iterator;
 
-Iterator_Type calc_pivot(Iterator_Type & first, Iterator_Type & last, size_t size)
+/// @brief  calculates which value in the array should be the pivot. Then lets pivot point to this value
+///         and that value is the last element in the array now, which means that last will point to the
+///         element at position (pivot - 1).
+/// @param first 
+/// @param last 
+/// @param pivot 
+/// @param size 
+void calc_pivot(Iterator_Type & first, Iterator_Type & last, Iterator_Type & pivot, size_t size)
 {
     Iterator_Type middle { first + (size/2) };
+    Iterator_Type tmp_pivot {};
     size_t first_s {first->size()};
     size_t last_s {last->size()};
     size_t middle_s {middle->size()};
 
     if (middle_s <= first_s && first_s <= last_s)
     {
-        return first;
+        tmp_pivot = first;
     }
     else if (first_s <= middle_s && middle_s <= last_s )
     {
-        return middle;
+        tmp_pivot = middle;
     }
     else if (last_s <= middle_s && last_s <= first_s)
     {
-        return last;
+        tmp_pivot = last;
     }
-    return middle;
+    tmp_pivot = middle;
+
+    Iterator_Type::value_type last_value{*last};
+    *last = *tmp_pivot;
+    pivot = last;
+    last = last - 1;
+    *tmp_pivot = last_value;
+    //cout << "tmp pivot: " << *tmp_pivot << endl;
 }
 
 void swap(Iterator_Type & lhs, Iterator_Type & rhs)
@@ -51,13 +67,42 @@ void quick_sort(Iterator_Type first, Iterator_Type last)
         return;
     }
     
-    Iterator_Type pivot { calc_pivot(first, last, size) };
-    swap(*pivot, *last);
-    cout << *pivot << endl;
+    Iterator_Type pivot{};
+    calc_pivot(first, last, pivot, size);    
+    // cout << "-----------Pivot calculation" << endl;
+    // cout << "First: " << *first << endl;
+    // cout << "Last: " << *last << endl;
+    // cout << "Pivot: " << *pivot << endl;
 
     // "sort" this part of the array
 
-    
+    int left_count{}, right_count{};
+
+    while (true)
+    {
+        // left has gone past right
+        if ()
+        {
+
+        }
+
+        if (first->size() >= pivot->size() && last->size() < pivot->size())
+        {
+
+        }
+
+        if (first->size() <= pivot->size())
+        {
+            ++first;
+            ++left_count;
+        }
+
+        if (last->size() > pivot->size())
+        {
+            ++last;
+            ++right_count;
+        }
+    }    
 }
 
 void sort(vector<string> & words)
