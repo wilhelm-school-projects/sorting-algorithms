@@ -76,33 +76,39 @@ void quick_sort(Iterator_Type first, Iterator_Type last)
 
     // "sort" this part of the array
 
-    int left_count{}, right_count{};
+    int left_count{}, right_count{ distance(first, pivot) + 1 };
 
     while (true)
     {
-        // left has gone past right
-        if ()
-        {
-
-        }
-
         if (first->size() >= pivot->size() && last->size() < pivot->size())
         {
-
+            // swap
         }
-
-        if (first->size() <= pivot->size())
+        
+        while (first->size() <= pivot->size())
         {
             ++first;
             ++left_count;
-        }
 
-        if (last->size() > pivot->size())
+            if (left_count > right_count)
+            {
+                // swap in pivot?
+            }
+        }
+        
+        while (last->size() > pivot->size())
         {
             ++last;
-            ++right_count;
+            --right_count;
+
+            if (left_count > right_count)
+            {
+                // swap in pivot?
+            }
         }
-    }    
+    }
+
+    // call quick with left and right side of pivot    
 }
 
 void sort(vector<string> & words)

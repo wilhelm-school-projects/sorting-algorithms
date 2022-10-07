@@ -1,1 +1,39 @@
-a if in is it se to not the was last text that this time broke words command english program swedish 
+
+Vector size: 22
+-------------------------------
+a
+broke
+command
+english
+if
+in
+is
+it
+last
+new
+not
+program
+se
+swedish
+text
+that
+the
+this
+time
+to
+was
+words
+-------------------------------
+
+
+Vector size: 22
+-------------------------------
+s  p  e  c                                                        
+w  r  n  o                                                        
+e  o  g  m  w  b                                                  
+d  g  l  m  o  r  t  t  t  t  l                                   
+i  r  i  a  r  o  i  h  h  e  a  w  t  n  n                       
+s  a  s  n  d  k  m  i  a  x  s  a  h  o  e  t  s  i  i  i  i     
+h  m  h  d  s  e  e  s  t  t  t  s  e  t  w  o  e  t  s  n  f  a  
+-------------------------------
+

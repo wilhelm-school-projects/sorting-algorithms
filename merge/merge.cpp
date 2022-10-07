@@ -97,7 +97,7 @@ int main()
     print(words);
 
     sort(words);
-    print_nice(words);
+    print(words);
 
     return 0;
 }
