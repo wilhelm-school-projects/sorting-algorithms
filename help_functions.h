@@ -5,7 +5,7 @@
 #include <string>
 #include <iostream>
 #include <algorithm>
-#include <set>
+#include <unordered_set>
 #include <iterator>
 #include <iomanip>
 #include <fstream>
@@ -23,7 +23,7 @@
 void insert_unique(std::vector<std::string> & item)
 {
     std::string buffer{};
-    std::set<std::string> input{};
+    std::unordered_set<std::string> input{};
     
     while (std::cin >> buffer)
     {

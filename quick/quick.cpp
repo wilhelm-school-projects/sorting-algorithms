@@ -2,11 +2,27 @@
 #include <string>
 #include <iterator>
 #include <iostream>
+#include <algorithm>
+
+// Used for testing
+#include <chrono>
+#include <thread>
 
 #include "../help_functions.h"
 
 using namespace std;
 using Iterator_Type  = vector<string>::iterator;
+
+void swap_in_pivot(Iterator_Type & to, Iterator_Type & pivot)
+{
+    // maybe not necessary to let "to" aka first point to last element. Maybe just plain stupid.
+    Iterator_Type::value_type tmp_val{*to};
+    Iterator_Type tmp_it{pivot};
+    *to = *pivot;
+    pivot = to;
+    to = tmp_it;
+    *to = tmp_val;
+}
 
 /// @brief  calculates which value in the array should be the pivot. Then lets pivot point to this value
 ///         and that value is the last element in the array now, which means that last will point to the
@@ -22,7 +38,11 @@ void calc_pivot(Iterator_Type & first, Iterator_Type & last, Iterator_Type & piv
     size_t first_s {first->size()};
     size_t last_s {last->size()};
     size_t middle_s {middle->size()};
+    // std::cout << "First: " << *first << std::endl;
+    // std::cout << "middle: " << *middle << std::endl;
+    // std::cout << "Last: " << *last << std::endl;
 
+    // Calculate the median and let tmp_pivot point to this element
     if (middle_s <= first_s && first_s <= last_s)
     {
         tmp_pivot = first;
@@ -37,25 +57,86 @@ void calc_pivot(Iterator_Type & first, Iterator_Type & last, Iterator_Type & piv
     }
     tmp_pivot = middle;
 
+    // Let pivot point to the last element which now is the pivot element
+    // and last point to the element left of pivot
     Iterator_Type::value_type last_value{*last};
     *last = *tmp_pivot;
     pivot = last;
     last = last - 1;
     *tmp_pivot = last_value;
-    //cout << "tmp pivot: " << *tmp_pivot << endl;
+    //std::cout << "tmp pivot: " << *tmp_pivot << std::endl;
 }
 
-void swap(Iterator_Type & lhs, Iterator_Type & rhs)
+/// @brief Puts elements < pivot to left of pivot and elements >= pivot to the right of pivot.
+/// @param first 
+/// @param last 
+/// @param pivot 
+void do_sorting(Iterator_Type left, Iterator_Type right, Iterator_Type & pivot, int size)
 {
-    if (lhs->size() < rhs->size() || lhs->size() > rhs->size())
+    calc_pivot(left, right, pivot, size);
+    Iterator_Type test_it_start{left};
+    Iterator_Type test_it_last {pivot};
+
+    int left_count{1}, right_count{ static_cast<int>(distance(left, pivot)) };
+
+    std::cout << "-------------PIVOT IN SWAPPAT----------------" << std::endl;
+    std::copy(left, pivot + 1, ostream_iterator<string>(std::cout, " "));
+    std::cout << std::endl;
+    std::cout << "---------------------------------------------" << std::endl;
+    std::cout << std::endl;
+
+    std::cout << "test-it-start: " << *test_it_start << std::endl;
+    std::cout << "test-it-last: " << *test_it_last << std::endl;
+
+    // cout << "First: " << *left << std::endl;
+    // cout << "Last: " << *right << std::endl;
+    // cout << "Pivot: " << *pivot << std::endl;
+
+    while (true)
     {
-        swap(*lhs, *rhs);
+        std::cout << "-------------MEDANS----------------" << std::endl;
+        std::copy(test_it_start, test_it_last + 1, ostream_iterator<string>(std::cout, " "));
+        std::cout << std::endl;
+        std::cout << "-----------------------------------" << std::endl;
+        std::cout << std::endl;
+        std::this_thread::sleep_for(std::chrono::milliseconds(500));
+
+        if (left->size() >= pivot->size() && right->size() < pivot->size())
+        {
+            std::swap(*left, *right);
+        }
+        
+        while (left->size() < pivot->size())
+        {
+            ++left;
+            ++left_count;
+
+            if (left_count > right_count)
+            {
+                swap_in_pivot(left, pivot);
+                return;
+            }
+        }
+        
+        while (right->size() > pivot->size())
+        {
+            std::cout << "här" << std::endl;
+            ++right;
+            --right_count;
+
+            if (left_count > right_count)
+            {
+                swap_in_pivot(left, pivot);
+                return;
+            }
+        }
     }
 }
 
+
 void quick_sort(Iterator_Type first, Iterator_Type last)
 {
-    size_t size { static_cast<size_t>(distance(first, last)) + 1};
+    size_t size { static_cast<size_t>(std::distance(first, last)) + 1};
 
     if (size == 1)
     {
@@ -63,50 +144,30 @@ void quick_sort(Iterator_Type first, Iterator_Type last)
     }
     else if (size == 2)
     {
-        swap(first, last);
+        if (first->size() > last->size())
+        {
+            std::swap(*first, *last);
+        }
         return;
     }
-    
-    Iterator_Type pivot{};
-    calc_pivot(first, last, pivot, size);    
-    // cout << "-----------Pivot calculation" << endl;
-    // cout << "First: " << *first << endl;
-    // cout << "Last: " << *last << endl;
-    // cout << "Pivot: " << *pivot << endl;
+    std::cout << "-------------INNAN-----------------" << std::endl;
+    std::copy(first, last + 1, ostream_iterator<string>(std::cout, " "));
+    std::cout << std::endl;
+    std::cout << "-----------------------------------" << std::endl;
+    std::cout << std::endl;
+
+
+    Iterator_Type pivot{};   
+    do_sorting(first, last, pivot, size); 
+
+    std::cout << "-------------Sorterat--------------" << std::endl;
+    std::copy(first, last + 1, ostream_iterator<string>(std::cout, " "));
+    std::cout << std::endl;
+    std::cout << "-----------------------------------" << std::endl;
+    std::cout << std::endl;
 
     // "sort" this part of the array
 
-    int left_count{}, right_count{ distance(first, pivot) + 1 };
-
-    while (true)
-    {
-        if (first->size() >= pivot->size() && last->size() < pivot->size())
-        {
-            // swap
-        }
-        
-        while (first->size() <= pivot->size())
-        {
-            ++first;
-            ++left_count;
-
-            if (left_count > right_count)
-            {
-                // swap in pivot?
-            }
-        }
-        
-        while (last->size() > pivot->size())
-        {
-            ++last;
-            --right_count;
-
-            if (left_count > right_count)
-            {
-                // swap in pivot?
-            }
-        }
-    }
 
     // call quick with left and right side of pivot    
 }

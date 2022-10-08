@@ -52,6 +52,8 @@
         "hash_map": "cpp",
         "list": "cpp",
         "unordered_set": "cpp",
-        "mixinvector": "cpp"
+        "mixinvector": "cpp",
+        "ratio": "cpp",
+        "thread": "cpp"
     }
 }
