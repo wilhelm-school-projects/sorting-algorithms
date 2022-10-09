@@ -4,10 +4,6 @@
 #include <iostream>
 #include <algorithm>
 
-// Used for testing
-#include <chrono>
-#include <thread>
-
 #include "../help_functions.h"
 
 using namespace std;
@@ -15,7 +11,6 @@ using Iterator_Type  = vector<string>::iterator;
 
 void swap_in_pivot(Iterator_Type & to, Iterator_Type & pivot)
 {
-    // maybe not necessary to let "to" aka first point to last element. Maybe just plain stupid.
     Iterator_Type::value_type tmp_val{*to};
     Iterator_Type tmp_it{pivot};
     *to = *pivot;
@@ -38,9 +33,6 @@ void calc_pivot(Iterator_Type & first, Iterator_Type & last, Iterator_Type & piv
     size_t first_s {first->size()};
     size_t last_s {last->size()};
     size_t middle_s {middle->size()};
-    // std::cout << "First: " << *first << std::endl;
-    // std::cout << "middle: " << *middle << std::endl;
-    // std::cout << "Last: " << *last << std::endl;
 
     // Calculate the median and let tmp_pivot point to this element
     if (middle_s <= first_s && first_s <= last_s)
@@ -64,7 +56,6 @@ void calc_pivot(Iterator_Type & first, Iterator_Type & last, Iterator_Type & piv
     pivot = last;
     last = last - 1;
     *tmp_pivot = last_value;
-    //std::cout << "tmp pivot: " << *tmp_pivot << std::endl;
 }
 
 /// @brief Puts elements < pivot to left of pivot and elements >= pivot to the right of pivot.
@@ -79,28 +70,8 @@ void do_sorting(Iterator_Type left, Iterator_Type right, Iterator_Type & pivot, 
 
     int left_count{1}, right_count{ static_cast<int>(distance(left, pivot)) };
 
-    std::cout << "-------------PIVOT IN SWAPPAT----------------" << std::endl;
-    std::copy(left, pivot + 1, ostream_iterator<string>(std::cout, " "));
-    std::cout << std::endl;
-    std::cout << "---------------------------------------------" << std::endl;
-    std::cout << std::endl;
-
-    std::cout << "test-it-start: " << *test_it_start << std::endl;
-    std::cout << "test-it-last: " << *test_it_last << std::endl;
-
-    // cout << "First: " << *left << std::endl;
-    // cout << "Last: " << *right << std::endl;
-    // cout << "Pivot: " << *pivot << std::endl;
-
     while (true)
     {
-        std::cout << "-------------MEDANS----------------" << std::endl;
-        std::copy(test_it_start, test_it_last + 1, ostream_iterator<string>(std::cout, " "));
-        std::cout << std::endl;
-        std::cout << "-----------------------------------" << std::endl;
-        std::cout << std::endl;
-        std::this_thread::sleep_for(std::chrono::milliseconds(500));
-
         if (left->size() >= pivot->size() && right->size() < pivot->size())
         {
             std::swap(*left, *right);
@@ -118,10 +89,9 @@ void do_sorting(Iterator_Type left, Iterator_Type right, Iterator_Type & pivot, 
             }
         }
         
-        while (right->size() > pivot->size())
+        while (right->size() >= pivot->size())
         {
-            std::cout << "här" << std::endl;
-            ++right;
+            --right;
             --right_count;
 
             if (left_count > right_count)
@@ -150,28 +120,25 @@ void quick_sort(Iterator_Type first, Iterator_Type last)
         }
         return;
     }
-    std::cout << "-------------INNAN-----------------" << std::endl;
-    std::copy(first, last + 1, ostream_iterator<string>(std::cout, " "));
-    std::cout << std::endl;
-    std::cout << "-----------------------------------" << std::endl;
-    std::cout << std::endl;
-
 
     Iterator_Type pivot{};   
     do_sorting(first, last, pivot, size); 
 
-    std::cout << "-------------Sorterat--------------" << std::endl;
-    std::copy(first, last + 1, ostream_iterator<string>(std::cout, " "));
-    std::cout << std::endl;
-    std::cout << "-----------------------------------" << std::endl;
-    std::cout << std::endl;
+    // Left side
+    if (first != pivot)
+    {
+        quick_sort(first, pivot - 1);
+    }
 
-    // "sort" this part of the array
-
-
-    // call quick with left and right side of pivot    
+    // Right side
+    if (last != pivot)
+    {
+        quick_sort(pivot + 1, last);
+    }
 }
 
+/// @brief Sorts the words in ascending order comparing the size of the string, using the quick sort method
+/// @param words 
 void sort(vector<string> & words)
 {
     quick_sort(words.begin(), words.end() - 1);
@@ -184,7 +151,7 @@ int main()
     print(words);
 
     sort(words);
-    //print(words);
+    print(words);
 
 
     return 0;
